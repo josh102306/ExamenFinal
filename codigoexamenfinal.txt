@@ -1,0 +1,81 @@
+#include<stdio.h>
+#include<string.h>
+
+typedef struct
+{
+	char nombre[20];
+	int edad;
+	char cargo;
+	int sueldo [100];
+}trabajador;
+
+void Lectura(trabajador *, int);
+void F3(trabajador *, int);
+
+int main(){
+	
+	trabajador empresa[100];
+	int tamanio;
+	
+	archivo();
+	
+		do{
+		printf("\nIngrese el numero de trabajadores: ");
+		scanf("%d",&tamanio);
+	}while(tamanio > 50 || tamanio < 1);
+
+	Lectura(empresa, tamanio);
+	F3(empresa, tamanio);
+	
+	return 0;
+}
+
+
+void Lectura(trabajador A[], int t){
+	int i;
+	for(i=0;i<t;i++){
+		printf("\n\t\tTrabajador (%d): ", i+1);
+		printf("\n\tNombre: ");
+		fflush(stdin);
+		fgets(A[i].nombre,20,stdin);
+		printf("\n\tEdad: ");
+		scanf("%d",&A[i].edad);
+		printf("\n\tCargo: ");
+		scanf("%s",&A[i].cargo);
+		printf("\n\tSueldo: ");
+		scanf("%d",&A[i].sueldo,100);
+		
+	}
+}
+
+
+void F3(trabajador A[], int t){
+	int i;
+	for(i=0;i<t;i++){
+			printf("\n\tNombre: %s\tSueldo: %d",A[i].nombre, A[i].sueldo);
+	}
+}
+
+void archivo(){
+	
+	FILE *apuntador_archivo;
+	
+	char nom_archivo[] = "informaciondetrabajadores.txt";
+	char lectura;
+	
+	if((apuntador_archivo = fopen(nom_archivo,"r"))==NULL){
+		
+		printf("Error: No se puede leer el archivo\n");
+		return 1;
+	}
+	else{
+		printf("Si se puede leer el archivo %s\n",nom_archivo);
+		while(!feof(apuntador_archivo)){
+			fscanf(apuntador_archivo,"%c",&lectura);
+			printf("%c",lectura);
+		}
+		printf("\n");
+	}
+	fclose(apuntador_archivo);
+	return 0;
+}
